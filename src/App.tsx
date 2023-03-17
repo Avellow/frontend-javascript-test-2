@@ -1,8 +1,10 @@
+import { Home } from './page-components';
+
 function App(): JSX.Element {
   return (
-    <div className="App">
-      First init
-    </div>
+    <>
+      <Home />
+    </>
   );
 }
 
