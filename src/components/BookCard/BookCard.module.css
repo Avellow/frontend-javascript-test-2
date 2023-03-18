@@ -1,0 +1,19 @@
+.card {
+  width: 100%;
+  max-width: 450px;
+}
+
+.coverWrapper {
+  padding: 0 0 100% 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.coverWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
