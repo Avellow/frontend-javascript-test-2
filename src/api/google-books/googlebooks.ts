@@ -1,4 +1,5 @@
 import { booksPerLoading } from "../../utils/constants";
+import { GoogleBooks } from "./GoogleBooksTypes";
 
 const API_KEY = "AIzaSyAVbG2ZaNggyn6kUSFu04jPbL-Ee0ASSGI";
 const API_URL = "https://www.googleapis.com/books/v1/volumes?";
@@ -45,8 +46,10 @@ function buildQueryParamsString({
   return result;
 }
 
-export const getBooks = async (params: SearchParams): Promise<Response> => {
+export const getBooks = async (params: SearchParams): Promise<GoogleBooks> => {
   return await fetch(
     `${API_URL}${buildQueryParamsString(params)}&key=${API_KEY}`
+  ).then((res) =>
+    res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`)
   );
 };

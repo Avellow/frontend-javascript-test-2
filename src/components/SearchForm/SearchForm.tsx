@@ -1,10 +1,10 @@
-import { Col, Form, Input, Row, Select, message } from 'antd';
-import { CategoriesEnum, SearchParams, SortingEnum } from '../../api/google-books/googlebooks';
+import { Col, Form, Input, Row, Select } from 'antd';
 
+import { CategoriesEnum, SearchParams, SortingEnum } from '../../api/google-books/googlebooks';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { lastIndexSelector } from '../../store/books';
+import { booksStateSelector, lastIndexSelector } from '../../store/books';
 import { fetchBooks } from '../../store/books/thunk';
-import styles from './SearchForm.module.css';
+import { isSearchParamsEqual } from '../../utils/isSearchParamsEqual';
 
 const { Search } = Input;
 
@@ -17,28 +17,39 @@ const initialFieldsValues: IFields = {
 
 export const SearchForm = () => {
 
-  const [form] = Form.useForm<IFields>();
+  const [form] = Form.useForm<SearchParams>();
 
   const dispatch = useAppDispatch();
+  const { lastRequestParams, loading } = useAppSelector(booksStateSelector);
   const lastIndex = useAppSelector(lastIndexSelector);
 
   const handleSearch = () => {
     form
       .validateFields()
-      .then((values) => dispatch(fetchBooks({ ...values, startIndex: lastIndex })))
-      .catch(() => message.error('Проверьте форму поиска'));
+      .then((values) => {
+        if (lastRequestParams && isSearchParamsEqual(lastRequestParams, values)) {
+          return;
+        } else {
+          dispatch(fetchBooks({
+            ...values,
+            searchString: values.searchString.trim(),
+            startIndex: lastIndex
+          }));
+        }
+      })
+      .catch(console.log);
   };
 
   return (
     <Form
       form={form}
       layout='horizontal'
-      className={styles.form}
       initialValues={initialFieldsValues}
+      disabled={loading}
     >
       <Row gutter={[20, 10]}>
         <Col span={12}>
-          <Form.Item name='category' label="Категория">
+          <Form.Item name='category' label="Categories">
             <Select>
               {
                 Object.values(CategoriesEnum).map(category => (
@@ -49,7 +60,7 @@ export const SearchForm = () => {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item name='sorting' label='Сортировать по'>
+          <Form.Item name='sorting' label='Sorting by'>
             <Select>
               {
                 Object.values(SortingEnum).map(sorting => (
@@ -60,9 +71,9 @@ export const SearchForm = () => {
           </Form.Item>
         </Col>
       </Row>
-      <Form.Item name='searchString' rules={[{ required: true, message: 'Введите название книги' }]}>
+      <Form.Item name='searchString' rules={[{ required: true, message: 'Insert book title' }]}>
         <Search
-          placeholder='Введите название книги'
+          placeholder='Book title'
           size='large'
           onSearch={handleSearch}
         />

@@ -8,13 +8,19 @@ export const fetchBooks = createAsyncThunk<
   SearchParams,
   { rejectValue: string }
 >("books/fetchBooks", async (params, { rejectWithValue }) => {
-  const response = await getBooks(params);
+  try {
+    const data = await getBooks(params);
 
-  if (!response.ok) {
-    return rejectWithValue("Server Error!");
+    if (!data.items || !data.items.length) {
+      return rejectWithValue(`По вашему запросу ничего не найдено`);
+    }
+
+    return data;
+  } catch (e) {
+    let message = "Ошибка при загрузке данных с сервера";
+    if (e instanceof Error) {
+      message = e.message;
+    }
+    return rejectWithValue(message);
   }
-
-  const data = await response.json();
-
-  return data;
 });
