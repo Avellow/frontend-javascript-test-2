@@ -1,0 +1,16 @@
+.books {
+  list-style: none;
+  width: 100%;
+  margin: 0 0 20px;
+  display: grid;
+  padding: 10px 30px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-rows: fit-content;
+  justify-items: center;
+  justify-content: space-around;
+  gap: 30px 15px;
+}
+
+.listItem {
+  width: 100%;
+}

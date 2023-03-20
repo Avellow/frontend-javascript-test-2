@@ -1,5 +1,3 @@
-export interface BookCardProps {
-  title: string;
-  description: string;
-  img: string;
-}
+import { IAppBook } from "../../api/AppBook";
+
+export interface BookCardProps extends IAppBook {}

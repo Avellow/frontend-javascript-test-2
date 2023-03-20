@@ -1,10 +1,12 @@
 .card {
   width: 100%;
-  max-width: 450px;
+  height: 100%;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 .coverWrapper {
-  padding: 0 0 100% 0;
+  padding: 0 0 130% 0;
   overflow: hidden;
   position: relative;
 }
@@ -16,4 +18,13 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.text {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: 5px;
 }
