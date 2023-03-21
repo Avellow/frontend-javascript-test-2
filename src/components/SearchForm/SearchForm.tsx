@@ -1,4 +1,5 @@
 import { Col, Form, Input, Row, Select } from 'antd';
+import { useEffect } from 'react';
 
 import { CategoriesEnum, SearchParams, SortingEnum } from '../../api/google-books/googlebooks';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -23,7 +24,16 @@ export const SearchForm = () => {
   const { lastRequestParams, loading } = useAppSelector(booksStateSelector);
   const lastIndex = useAppSelector(lastIndexSelector);
 
-  const handleSearch = () => {
+  useEffect(() => {
+    if (lastRequestParams) {
+      form.setFieldsValue(lastRequestParams);
+    }
+  }, []);
+
+  const handleSearch = (bookTitle: string) => {
+    if (!bookTitle) {
+      return;
+    }
     form
       .validateFields()
       .then((values) => {
@@ -36,8 +46,7 @@ export const SearchForm = () => {
             startIndex: lastIndex
           }));
         }
-      })
-      .catch(console.log);
+      });
   };
 
   return (
