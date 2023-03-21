@@ -1,7 +1,8 @@
 import { IRouter } from './router.types';
 import {
   Home,
-  BookPage
+  BookPage,
+  NotFound
 } from '../page-components';
 
 export const pagesData: IRouter[] = [
@@ -14,5 +15,10 @@ export const pagesData: IRouter[] = [
     path: 'books/:id',
     element: <BookPage />,
     title: 'Book Details'
+  },
+  {
+    path: '*',
+    element: <NotFound />,
+    title: '404 page'
   }
 ];

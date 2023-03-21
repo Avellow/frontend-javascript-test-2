@@ -1,3 +1,6 @@
+import { withErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './components';
+
 import { Page } from './page-components';
 import Router from './routes/router';
 
@@ -9,4 +12,6 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+export default withErrorBoundary(App, {
+  FallbackComponent: ErrorFallback,
+});
