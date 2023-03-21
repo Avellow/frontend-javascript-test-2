@@ -1,4 +1,5 @@
 import { BooksContainer, SearchForm } from '../../components';
+import { UpButton } from '../../components/UpButton/UpButton';
 import styles from './Home.module.css';
 
 export const Home = (): JSX.Element => {
@@ -11,6 +12,7 @@ export const Home = (): JSX.Element => {
       <section className={styles.booksSection}>
         <BooksContainer />
       </section>
+      <UpButton />
     </>
   );
 };
