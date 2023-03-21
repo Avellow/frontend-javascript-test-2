@@ -12,12 +12,12 @@ export const fetchBooks = createAsyncThunk<
     const data = await getBooks(params);
 
     if (!data.items || !data.items.length) {
-      return rejectWithValue(`По вашему запросу ничего не найдено`);
+      return rejectWithValue("Nothing found for your request");
     }
 
     return data;
   } catch (e) {
-    let message = "Ошибка при загрузке данных с сервера";
+    let message = "Error loading data from server";
     if (e instanceof Error) {
       message = e.message;
     }

@@ -12,12 +12,13 @@ export function convertBookProps(book: Item): IAppBook {
   }
 
   return {
-    id: book.etag,
+    etag: book.etag,
     authors: book.volumeInfo.authors ? book.volumeInfo.authors : [],
     title: book.volumeInfo.title,
     subtitle: book.volumeInfo.subtitle,
-    category: book.volumeInfo.categories ? book.volumeInfo.categories[0] : "",
+    category: book.volumeInfo.categories ? book.volumeInfo.categories : [],
     image,
     description: book.volumeInfo.description,
+    volumeId: book.id,
   };
 }

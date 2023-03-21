@@ -1,12 +1,12 @@
 import { Button, Spin, Typography } from 'antd';
 
 import { BookCard } from '..';
-import styles from './BooksContainer.module.css';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { booksStateSelector } from '../../store/books';
 import { SearchParams } from '../../api/google-books/googlebooks';
 import { booksPerLoading } from '../../utils/constants';
 import { fetchBooks } from '../../store/books/thunk';
+import styles from './BooksContainer.module.css';
 
 const { Title, Text } = Typography;
 
@@ -56,13 +56,13 @@ export const BooksContainer = (): JSX.Element => {
           <ul className={styles.books}>
             {
               booksData.map(book => (
-                <li key={book.id} className={styles.listItem}>
+                <li key={book.etag} className={styles.listItem}>
                   <BookCard
-                    id={book.id}
                     title={book.title}
                     authors={book.authors}
                     category={book.category}
                     image={book.image}
+                    volumeId={book.volumeId}
                   />
                 </li>
               ))

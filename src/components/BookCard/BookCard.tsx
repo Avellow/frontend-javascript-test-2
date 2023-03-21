@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Card, Typography } from 'antd';
 
 import { BookCardProps } from './BookCard.props';
@@ -11,6 +12,7 @@ export const BookCard = ({
   image,
   category,
   authors,
+  volumeId
 }: BookCardProps): JSX.Element => {
 
   function buildCover() {
@@ -22,15 +24,17 @@ export const BookCard = ({
   }
 
   return (
-    <Card
-      hoverable
-      className={styles.card}
-      cover={buildCover()}
-      bodyStyle={{ padding: 12 }}
-    >
-      <Text type='secondary'>{category}</Text>
-      <Meta title={title} />
-      <Text type='secondary' className={styles.text}>{authors.join(', ')}</Text>
-    </Card>
+    <Link to={`books/${volumeId}`}>
+      <Card
+        hoverable
+        className={styles.card}
+        cover={buildCover()}
+        bodyStyle={{ padding: 12 }}
+      >
+        <Text type='secondary'>{category[0]}</Text>
+        <Meta title={title} />
+        <Text type='secondary' className={styles.text}>{authors.join(', ')}</Text>
+      </Card>
+    </Link>
   );
 };

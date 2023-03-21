@@ -1,10 +1,11 @@
-import { Home } from './page-components';
+import { Page } from './page-components';
+import Router from './routes/router';
 
 function App(): JSX.Element {
   return (
-    <>
-      <Home />
-    </>
+    <Page>
+      <Router />
+    </Page>
   );
 }
 
