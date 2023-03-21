@@ -1,5 +1,4 @@
-import { BooksContainer, SearchForm } from '../../components';
-import { UpButton } from '../../components/UpButton/UpButton';
+import { BooksContainer, SearchForm, UpButton } from '../../components';
 import styles from './Home.module.css';
 
 export const Home = (): JSX.Element => {
